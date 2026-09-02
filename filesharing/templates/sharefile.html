@@ -1,0 +1,32 @@
+{% extends 'master.html' %}
+
+{% block body %}
+
+<h1>Share File</h1>
+<p>File: {{ file.file_name }}</p>
+
+<hr>
+<form method="post">
+    {% csrf_token %}
+    <p>
+        <label>Share With:</label>
+        <select name="user">
+            {% for user in users %}
+            <option value="{{ user.id }}">
+                {{ user.email }}
+            </option>
+            {% endfor %}
+        </select>
+    </p>
+
+    <p>
+        <label>Permission:</label>
+        <select name="permission">
+            <option value="view">View</option>
+            <option value="edit">Edit</option>
+        </select>
+    </p>
+
+    <input type="submit" value="Share">
+</form>
+{% endblock %}

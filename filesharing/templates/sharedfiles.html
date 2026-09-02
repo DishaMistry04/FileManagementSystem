@@ -1,0 +1,61 @@
+{% extends 'master.html' %}
+{% block body %}
+
+<div class="container-fluid p-0">
+    <div class="row g-0">
+        {% include 'sidebar.html' %}
+        <div class="col-md-10 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold mb-0">Shared Files</h4>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-body p-0">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="text-center">
+                            <tr>
+                                <th>File Name</th>
+                                <th>Shared By</th>
+                                <th>Permission</th>
+                                <th>Shared At</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for share in shares %}
+                            <tr>
+                                <td>{{ share.file.file_name }}</td>
+                                <td>{{ share.file.owner.email }}</td>
+                                <td>{{ share.permission }}</td>
+                                <td>{{ share.shared_at }}</td>
+                                <td>
+                                    <div class="d-flex flex-wrap gap-1">
+
+                                        <a href="/download_file/{{ share.file.id }}"
+                                            class="btn btn-outline-success btn-sm">
+                                            Download
+                                        </a>
+
+                                        <a href="/preview_file/{{ share.file.id }}"
+                                            class="btn btn-outline-secondary btn-sm">
+                                            Preview
+                                        </a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center text-muted p-3">
+                                    No shared files.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

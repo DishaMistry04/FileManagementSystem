@@ -1,0 +1,138 @@
+{% extends 'master.html' %}
+{% block body %}
+<div class="container-fluid p-0">
+    <div class="row g-0">
+        {% include 'sidebar.html' %}
+        <div class="col-md-10 p-3">
+            <h4 class="fw-bold mb-1">Dashboard</h4>
+            <p class="text-muted small mb-3">Welcome to your FileNest</p>
+            <div class="row g-2 mb-3">
+                <div class="col-md-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body py-2">
+                            <p class="text-muted small mb-1">Files</p>
+                            <h5 class="fw-bold mb-0">{{ file_count }}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body py-2">
+                            <p class="text-muted small mb-1">Folders</p>
+                            <h5 class="fw-bold mb-0">{{ folder_count }}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="card shadow-sm w-100 text-start border-0" data-bs-toggle="modal"
+                        data-bs-target="#storageModal">
+                        <div class="card-body py-2">
+                            <p class="text-muted small mb-1">Storage Used</p>
+                            <h5 class="fw-bold mb-0">{{ storage }}</h5>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div class="row g-2 mb-3">
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center py-3">
+                            <h6>Upload File</h6>
+                            <p class="text-muted small mb-2">Upload your files to FileNest.</p>
+                            <a href="/upload_file" class="btn btn-primary btn-sm">Upload File</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center py-3">
+                            <h6>Create Folder</h6>
+                            <p class="text-muted small mb-2">Organize your files into folders.</p>
+                            <a href="/create_folder" class="btn btn-primary btn-sm">Create Folder</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow-sm">
+                <div class="card-header bg-white py-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">Recent Files</h6>
+                        <a href="/files" class="btn btn-outline-primary btn-sm">View All</a>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-sm mb-0">
+                            <thead>
+                                <tr>
+                                    <th>File Name</th>
+                                    <th>Type</th>
+                                    <th>Size</th>
+                                    <th>Uploaded</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for file in recent_files %}
+                                <tr>
+                                    <td>{{ file.file_name }}</td>
+                                    <td>{{ file.file_type }}</td>
+                                    <td>{{ file.file_size }} bytes</td>
+                                    <td>{{ file.uploaded_at }}</td>
+                                    <td>
+                                            <a href="/preview_file/{{ file.id }}"
+                                                class="btn btn-outline-secondary btn-sm">Preview</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted p-3">No recent files.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal fade" id="storageModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Storage</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-2">{{ storage }} of 10 GB used</p>
+                <div class="progress mb-3">
+                    <div class="progress-bar" style="width: {{ percentage }}%;" role="progressbar"
+                        aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100">{{ percentage }}%</div>
+                </div>
+                <div class="d-flex justify-content-between border-bottom py-2">
+                    <span>Documents</span>
+                    <span>{{ documents }}</span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom py-2">
+                    <span>PDFs</span>
+                    <span>{{ pdfs }}</span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom py-2">
+                    <span>Images</span>
+                    <span>{{ images }}</span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom py-2">
+                    <span>Others</span>
+                    <span>{{ others }}</span>
+                </div>
+                <div class="d-flex justify-content-between pt-2">
+                    <strong>Total</strong>
+                    <strong>{{ storage }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

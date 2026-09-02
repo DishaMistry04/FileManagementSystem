@@ -1,0 +1,22 @@
+{% extends 'master.html' %}
+
+{% block body %}
+
+<div class="container-fluid p-0">
+    <div class="row g-0">
+
+        {% include 'sidebar.html' %}
+
+        <div class="col-md-10 p-4">
+
+            {% if summary %}
+                <div class="summary">
+                    {{ summary|safe }}
+                </div>
+            {% endif %}
+            <button onclick="window.print()" class="btn btn-primary btn-sm">Save as PDF</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

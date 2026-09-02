@@ -1,0 +1,34 @@
+<div class="col-md-2 bg text-white min-vh-100 p-3">
+    <ul class="nav nav-pills flex-column gap-1">
+        <li class="nav-item">
+            <a href="/filenest"
+                class="nav-link {% if request.path == '/filenest' %}active{% else %}text-white{% endif %} small">
+                Dashboard
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/files"
+                class="nav-link {% if request.path == '/files' %}active{% else %}text-white{% endif %} small">
+                Files
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/folders"
+                class="nav-link {% if request.path == '/folders' %}active{% else %}text-white{% endif %} small">
+                Folders
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/shared_files"
+                class="nav-link {% if request.path == '/shared_files' %}active{% else %}text-white{% endif %} small">
+                Shared Files
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/trash"
+                class="nav-link {% if request.path == '/trash' %}active{% else %}text-white{% endif %} small">
+                Trash
+            </a>
+        </li>
+    </ul>
+</div>

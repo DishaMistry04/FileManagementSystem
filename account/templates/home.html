@@ -1,0 +1,33 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block body %}
+<br><br>
+<h1 class="fontss">Welcome to FileNest!!</h1>
+<p class="fonts">Your Files. Your Space.</p>
+<p class="container">Store, organize, manage, and share your files easily in one place. FileNest provides a convenient digital space where you can keep everything together without worrying about scattered files. It gives you a simple and comfortable way to keep your digital workspace clean and organized.
+</p>
+
+<div class="container text-center">
+<table class="table table-bordered table-striped-columns">
+    <tr>
+    <th>Upload Files</th>
+    <th>Organize Files</th>
+    <th>Share Files</th>
+    <th>Manage Files</th>
+    <th>Trash</th>
+    </tr>
+
+    <tr>
+        <td>Upload multiple files and manage them easily.</td>
+        <td>Create folders and subfolders to keep your files organized.</td>
+        <td>Share your files with other users with View or Edit permission.</td>
+        <td>Preview, download, edit, move, and delete your files.</td>
+        <td>Move unwanted files to Trash and restore them whenever needed.</td>
+    </tr>
+</table>
+</div>
+
+<p class="container fw-medium">Get Started!! Start managing your files with FileNest today. <a href="signup">Create Your Account Now</a></p>
+{% endblock %}
+

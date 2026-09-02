@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <nav class="navbar m-0" style="background-color: #246176;">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <img src="{% static 'images/filenest.png' %}" alt="BookHub" width="70" height="70">
+
+                <h2 class="ms-2 mb-0" style="color: whitesmoke;">FileNest</h2>
+            </div>
+            {% if user.is_authenticated %}
+            <ul class="nav nav-tabs flex-wrap">
+
+                <li class="nav-item">
+                    <a class="nav-link " href="/filenest">Home</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="bi bi-person-circle fs-5"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-lg-end">
+                        <li class="text-center fw-bold">Hello, {{user.first_name}} </li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+            {% else %}
+            <ul class="nav nav-tabs flex-wrap">
+                <li class="nav-item">
+                    <a class="nav-link " href="/">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="login">Login</a>
+                </li>
+
+            </ul>
+            {% endif %}
+
+        </div>
+    </nav>
+</body>
+
+</html>
