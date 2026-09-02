@@ -1,0 +1,48 @@
+{% extends 'master.html' %}
+{% block body %}
+<div class="container-fluid p-0">
+    <div class="row g-0">
+        {% include 'sidebar.html' %}
+        <div class="col-md-10 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold mb-0">Trash</h4>
+            </div>
+            <div class="card shadow-sm">
+                <div class="card-body p-0">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="text-center">
+                            <tr>
+                                <th>File Name</th>
+                                <th>Type</th>
+                                <th>Deleted At</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in trash_files %}
+                            <tr>
+                                <td>{{ item.file.file_name }}</td>
+                                <td>{{ item.file.file_type }}</td>
+                                <td>{{ item.deleted_at }}</td>
+                                <td>
+                                    <div class="d-flex flex-wrap gap-1">
+                                        <a href="/trash_restore/{{ item.id }}"
+                                            class="btn btn-outline-success btn-sm">Restore</a>
+                                        <a href="/trash_permanent_delete/{{ item.id }}"
+                                            class="btn btn-outline-danger btn-sm">Permanent Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center text-muted p-3">Trash is empty.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

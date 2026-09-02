@@ -1,0 +1,119 @@
+{% extends 'master.html' %}
+{% block body %}
+<div class="container-fluid p-0">
+    <div class="row g-0">
+        {% include 'sidebar.html' %}
+        <div class="col-md-10 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold mb-0">Folders</h4>
+                <a href="/create_folder" class="btn btn-primary btn-sm">Create Folder</a>
+            </div>
+            <div class="card shadow-sm">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="ps-3">Folder Name</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for folder in folders %}
+                                <tr>
+                                    <td class="ps-3">{{ folder.folder_name }}</td>
+                                    <td>{{ folder.created_at }}</td>
+                                    <td>
+                                        <a href="/open_folder/{{ folder.id }}"
+                                            class="btn btn-outline-primary btn-sm">Open</a>
+                                        <a href="/upload_file?folder={{ folder.id }}"
+                                            class="btn btn-outline-success btn-sm">Add Files</a>
+                                        <button type="button" class="btn btn-outline-primary btn-sm"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#rename{{ folder.id }}">Rename</button>
+                                        <button type="button" class="btn btn-outline-warning btn-sm"
+                                            data-bs-toggle="modal" data-bs-target="#move{{ folder.id }}">Move</button>
+                                        <a href="/delete_folder/{{ folder.id }}"
+                                            class="btn btn-outline-danger btn-sm">Delete</a>
+                                    </td>
+                                </tr>
+
+                                <div class="modal fade" id="rename{{ folder.id }}" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Rename Folder</h5>
+                                                <button type="button" class="btn-close"
+                                                    data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="post" action="/rename_folder/{{ folder.id }}">
+                                                    {% csrf_token %}
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Folder Name</label>
+                                                        <input type="text" name="folder_name"
+                                                            value="{{ folder.folder_name }}" class="form-control"
+                                                            required>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <button type="submit"
+                                                            class="btn btn-primary btn-sm">Rename</button>
+                                                        <button type="button" class="btn btn-secondary btn-sm"
+                                                            data-bs-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="move{{ folder.id }}" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Move Folder</h5>
+                                                <button type="button" class="btn-close"
+                                                    data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><strong>Folder:</strong> {{ folder.folder_name }}</p>
+                                                <form method="post" action="/move_folder/{{ folder.id }}">
+                                                    {% csrf_token %}
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Select Parent Folder</label>
+                                                        <select name="parent" class="form-select">
+                                                            <option value="">Main Folder</option>
+                                                            {% for f in all_folders %}
+                                                            {% if f.id != folder.id %}
+                                                            <option value="{{ f.id }}">{{ f.folder_name }}</option>
+                                                            {% endif %}
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <button type="submit"
+                                                            class="btn btn-warning btn-sm">Move</button>
+                                                        <button type="button" class="btn btn-secondary btn-sm"
+                                                            data-bs-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% empty %}
+                                <tr>
+                                    <td colspan="3" class="text-center text-muted p-3">No folders created.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
