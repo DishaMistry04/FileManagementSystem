@@ -3,3 +3,4 @@ python-dotenv
 google-genai
 django-bootstrap5
 djangorestframework
+whitenoise
